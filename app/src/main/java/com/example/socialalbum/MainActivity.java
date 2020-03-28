@@ -29,14 +29,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findID();
+        quicklogin();
         login_button();
         signin_button();
     }
+
+
     private void findID() {
         email = findViewById(R.id.email_edittext);
         password = findViewById(R.id.password_edittext);
         login = findViewById(R.id.login_button);
         signin = findViewById(R.id.signin_button);
+    }
+    private void quicklogin() {
+        if(SharedPrefManager.getInstance(MainActivity.this).getUserId()!=null){
+            startActivity(new Intent(MainActivity.this,Home.class));
+        }
     }
     private void login_button() {
         login.setOnClickListener(new View.OnClickListener() {
