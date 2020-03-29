@@ -2,6 +2,13 @@ package com.example.socialalbum;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -12,13 +19,10 @@ public class SharedPrefManager {
     private static final String KEY_USER_NAME = "name";
     private static final String KEY_USER_SURNAME = "surname";
     private static final String KEY_USER_EMAIL = "useremail";
-    private static final String KEY_USER_IMAGE_URL = "imageurl";
-    private  static final String KEY_USER_IMAGE = "image";
+    private static final String KEY_USER_PHOTO_URL = "photo_url";
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
-
-
 
     private SharedPrefManager(Context context) {
         mCtx = context;
@@ -31,7 +35,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String id, String name, String surname, String email, String username) {
+    public boolean userLogin(String id, String name, String surname, String email, String username,String photo_url) {
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString(KEY_USER_ID, id);
@@ -39,6 +43,7 @@ public class SharedPrefManager {
         editor.putString(KEY_USER_SURNAME,surname);
         editor.putString(KEY_USER_EMAIL, email);
         editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_USER_PHOTO_URL, photo_url);
         editor.commit();
         editor.apply();
         return true;
@@ -51,7 +56,7 @@ public class SharedPrefManager {
         return false;
     }
     public boolean logout() {
-        SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.clear();
         editor.apply();
@@ -77,6 +82,8 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USERNAME, null);
     }
-
-
+    public String getPhotoUrl() {
+        SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_PHOTO_URL, null);
+    }
 }

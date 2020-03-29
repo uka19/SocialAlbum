@@ -1,8 +1,8 @@
 package com.example.socialalbum;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                                 jsonObject.getString("name"),
                                 jsonObject.getString("surname"),
                                 jsonObject.getString("email"),
-                                jsonObject.getString("username"));
+                                jsonObject.getString("username"),
+                                jsonObject.getString("photos_url"));
                         finish();
                         startActivity(new Intent(MainActivity.this, Home.class));
                     }
